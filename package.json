@@ -6,14 +6,24 @@
     "start": "next start"
   },
   "dependencies": {
+    "flowbite": "^1.6.4",
+    "fs": "^0.0.1-security",
+    "i18next": "^22.4.12",
     "next": "latest",
+    "openai": "^3.2.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.0",
+    "react-i18next": "^12.2.0",
+    "react-modal": "^3.16.1",
+    "sharp": "^0.31.3",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/react-modal": "^3.13.1",
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
     "tailwindcss": "^3.2.4",
