@@ -3,7 +3,7 @@ import { initReactI18next } from "react-i18next";
 
 i18n.use(initReactI18next).init({
   debug: true,
-  lng: "en",
+  lng: "de",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
@@ -41,6 +41,7 @@ i18n.use(initReactI18next).init({
         title2: "Wählen Sie die Bildgröße:",
         title3: "Wählen Sie die Anzahl der zu generierenden Bilder aus:",
         title4: "Wählen Sie das Bild aus, das Sie erneut generieren möchten:",
+        title5: "Wählen Sie die folgenden Optionen: (Optional)",
         generate: "Generieren",
         generating: "Generieren...",
         note: "Hinweis: Das ausgewählte Bild sollte im PNG-Format sein, weniger als 4 MB groß sein und quadratisch sein.",
