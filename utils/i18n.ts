@@ -3,7 +3,7 @@ import { initReactI18next } from "react-i18next";
 
 i18n.use(initReactI18next).init({
   debug: true,
-  lng: "de",
+  lng: "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false, // not needed for react as it escapes by default
@@ -22,6 +22,7 @@ i18n.use(initReactI18next).init({
         title2: "Select Image Size:",
         title3: "Select Number of images you want to generate:",
         title4: "Select image you want to regenerate:",
+        title5: "Select the following options: (Optional)",
         generate: "Generate",
         generating: "Generating...",
         error: "Images was unable to generate",
