@@ -13,14 +13,58 @@ type Image = {
 
 type Data = Image[];
 
-const Generate = () => {
+const imageStyles = [
+  "Portrait",
+  "Digital Art",
+  "Landscape",
+  "Abstract",
+  "Realism",
+  "Impressionism",
+  "Expressionism",
+  "Minimalism",
+  "Pop Art",
+  "Surrealism",
+];
+
+const artists = [
+  "Claude Monet",
+  "Banksy",
+  "Vincent van Gogh",
+  "Pablo Picasso",
+  "Leonardo da Vinci",
+  "Salvador Dali",
+  "Frida Kahlo",
+  "Michelangelo",
+  "Rembrandt",
+  "Georgia O'Keeffe",
+];
+
+const modifierStyles = [
+  "Minimalist",
+  "Retro",
+  "Gothic",
+  "Futuristic",
+  "Industrial",
+  "Bohemian",
+  "Art Deco",
+  "Mid-Century Modern",
+  "Vintage",
+  "Scandinavian",
+];
+
+const Artistic = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
   const [number, setNumber] = useState<number | undefined>(undefined);
   const [selectedValue, setSelectedValue] = useState<string>("Small");
   const [images, setImages] = useState<Data>([]);
   const [image, setImage] = useState<string>("");
-
+  const [selectedImageStyle, setSelectedImageStyle] =
+    useState<string>("Portrait");
+  const [selectedArtistStyle, setSelectedArtistsStyle] =
+    useState<string>("Claude Monet");
+  const [selectedModifierStyle, setSelectedModifierStyle] =
+    useState<string>("Minimalist");
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const { t } = useTranslation();
 
@@ -40,6 +84,25 @@ const Generate = () => {
     setSelectedValue(e.target.value);
   };
 
+  const handleStyleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedImageStyle(event.target.value);
+    console.log(selectedImageStyle);
+  };
+
+  const handleArtistsStyleChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedArtistsStyle(event.target.value);
+    console.log(selectedArtistStyle);
+  };
+
+  const handleModifierStyleChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedModifierStyle(event.target.value);
+    console.log(selectedModifierStyle);
+  };
+
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (text === "") {
@@ -55,7 +118,9 @@ const Generate = () => {
 
     setLoading(true);
 
-    let prompt = text;
+    let prompt = `Create an image with ${selectedImageStyle} + ${selectedArtistStyle} + ${selectedModifierStyle} styles using this description: ${text}.`;
+
+    console.log(prompt);
 
     try {
       const response = await fetch("/api/generate", {
@@ -119,7 +184,52 @@ const Generate = () => {
 
       <div className="mt-3" />
 
-      <Number number={3} title={t("title3")} />
+      <Number number={3} title={t("title5")} />
+
+      <div className="grid grid-cols-2 gap-2 mt-4">
+        <label className="block my-2 text-sm text-left font-medium text-gray-900 dark:text-white">
+          Image Style:
+        </label>
+        <select
+          onChange={handleStyleChange}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
+        >
+          {imageStyles.map((style) => (
+            <option key={style} value={style}>
+              {style}
+            </option>
+          ))}
+        </select>
+        <label className="block my-2 text-sm text-left font-medium text-gray-900 dark:text-white">
+          Artist Style:
+        </label>
+        <select
+          onChange={handleArtistsStyleChange}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
+        >
+          {artists.map((style) => (
+            <option key={style} value={style}>
+              {style}
+            </option>
+          ))}
+        </select>
+        <label className="block my-2 text-sm text-left font-medium text-gray-900 dark:text-white">
+          Modifers Style:
+        </label>
+        <select
+          onChange={handleModifierStyleChange}
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-black focus:border-black block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-black dark:focus:border-black"
+        >
+          {modifierStyles.map((style) => (
+            <option key={style} value={style}>
+              {style}
+            </option>
+          ))}
+        </select>
+        <div className="mb-2" />
+      </div>
+
+      <Number number={4} title={t("title3")} />
 
       <input
         onChange={handleNumberChange}
@@ -169,4 +279,4 @@ const Generate = () => {
   );
 };
 
-export default Generate;
+export default Artistic;

@@ -7,13 +7,17 @@ import Header from "../components/Header";
 import { useTranslation } from "react-i18next";
 import Regenerate from "../components/Regenerate";
 import Generate from "../components/Generate";
+import Artistic from "../components/Artistic";
+
+const btn =
+  "p-3 text-md font-semibold bg-black text-white rounded-md transform transition-transform hover:scale-105";
 
 const Home: NextPage = () => {
-  const [mode, setMode] = useState<Boolean>(true);
+  const [mode, setMode] = useState<string>("");
   const { t } = useTranslation();
 
   return (
-    <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
+    <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen ">
       <Head>
         <title>Image Generator</title>
       </Head>
@@ -24,29 +28,39 @@ const Home: NextPage = () => {
           {t("heroTitle")}
         </h1>
 
-        <div className="flex mt-5 mb-[-5px]">
+        {!mode && (
+          <div className="mt-3 flex flex-col space-y-2 w-1/2 ">
+            <p className="font-semibold text-sm 2xl:text-lg">Select Option:</p>
+            <button className={btn} onClick={() => setMode("generation")}>
+              {t("gbutton")}
+            </button>
+            <button className={btn} onClick={() => setMode("artist")}>
+              {t("abutton")}
+            </button>
+            <button className={btn} onClick={() => setMode("regeneration")}>
+              {t("rgbutton")}
+            </button>
+          </div>
+        )}
+
+        <div className="mt-5" />
+
+        {mode === "generation" ? (
+          <Generate />
+        ) : mode === "artist" ? (
+          <Artistic />
+        ) : mode === "regeneration" ? (
+          <Regenerate />
+        ) : null}
+
+        {mode && (
           <button
-            className={`px-4 py-2  font-semibold ${
-              mode ? "bg-black text-white" : "bg-gray-300 text-black"
-            }`}
-            onClick={() => setMode(!mode)}
+            className="bg-black rounded-md text-white font-medium px-5 py-2 sm:mt-10 mt-8 hover:bg-black"
+            onClick={() => setMode("")}
           >
-            {t("gbutton")}
+            &#8592; Go back
           </button>
-          <button
-            className={`px-7 py-2  font-semibold ${
-              !mode ? "bg-black text-white" : "bg-gray-300 text-black"
-            }`}
-            onClick={() => setMode(!mode)}
-          >
-            {t("rgbutton")}
-          </button>
-        </div>
-
-        <div className="mt-4" />
-
-        {mode ? <Generate /> : <Regenerate />}
-
+        )}
         <Toaster
           position="top-center"
           reverseOrder={false}
