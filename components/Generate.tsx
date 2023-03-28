@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-hot-toast";
 import Modal from "./Modal";
 import LoadingDots from "./LoadingDots";
-import { validateConfig } from "next/dist/server/config-shared";
 
 type Image = {
   url: string;
@@ -58,17 +57,20 @@ const Generate = () => {
     let prompt = text;
 
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          number,
-          prompt,
-          size,
-        }),
-      });
+      const response = await fetch(
+        "https://justizcar.onrender.com/generate-images",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            number,
+            prompt,
+            size,
+          }),
+        }
+      );
       const data = await response.json();
       console.log(data);
       if (data.success) {

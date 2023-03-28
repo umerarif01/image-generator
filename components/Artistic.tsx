@@ -26,15 +26,26 @@ const imageStyles = [
   "Surrealism",
 ];
 
-const artists = [
+const artists: string[] = [
+  "Albert Bierstadt",
+  "Andy Warhol",
+  "Asaf Hanuka",
+  "Aubrey Beardsley",
   "Claude Monet",
-  "Banksy",
-  "Vincent van Gogh",
-  "Pablo Picasso",
-  "Leonardo da Vinci",
-  "Salvador Dali",
+  "Diego Rivera",
   "Frida Kahlo",
+  "Greg Rutkowski",
+  "Hayao Miyazaki",
+  "Hieronymus Bosch",
+  "Jackson Pollock",
+  "Leonardo da Vinci",
   "Michelangelo",
+  "Pablo Picasso",
+  "Salvador Dali",
+  "Stanley Artgerm",
+  "Thomas Kinkade",
+  "Vincent van Gogh",
+  "Banksy",
   "Rembrandt",
   "Georgia O'Keeffe",
 ];
@@ -118,22 +129,25 @@ const Artistic = () => {
 
     setLoading(true);
 
-    let prompt = `Create an image with ${selectedImageStyle} + ${selectedArtistStyle} + ${selectedModifierStyle} styles using this description: ${text}.`;
+    let prompt = `Create an image that incorporates the image style of ${selectedImageStyle}, artist style of ${selectedArtistStyle}, and modifier style of ${selectedModifierStyle}. Use the following description as your guide: ${text} `;
 
     console.log(prompt);
 
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          number,
-          prompt,
-          size,
-        }),
-      });
+      const response = await fetch(
+        "https://justizcar.onrender.com/generate-images",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            number,
+            prompt,
+            size,
+          }),
+        }
+      );
       const data = await response.json();
       console.log(data);
       if (data.success) {
